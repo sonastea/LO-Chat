@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% if title %}
+        <title>{{ title }} LO:Chat</title>
+        {% else %}
+        <title>LO:Chat Home</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            <!-- Navigation Bar -->
+            LO:Chat
+            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.login') }}">Login</a>
+        </div>
+    {% block content %}{% endblock  %}
+    </body>
+</html>

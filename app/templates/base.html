@@ -11,8 +11,8 @@
         <div>
             <!-- Navigation Bar -->
             LO:Chat | 
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.login') }}">Login</a>
         </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}

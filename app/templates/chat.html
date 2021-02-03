@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<html>
+{% block app_content %}
+<head>
+</head>
+
+<body>
+    <h3>Hello, {{ current_user.username }} </h3>
+    <h2>Test Room</h1>
+    <ul id="chatbox"></ul>
+    
+    <form method="POST", id="msg-form">
+        {{ msg.hidden_tag() }}
+        {{ msg.message(placeholder="LO:Message") }} 
+        {{ msg.submit(value="Send") }}
+        <!--<button type='button' id="sendbutton">Send</button>-->
+    </form>
+</body>
+{% endblock %}
+</html>

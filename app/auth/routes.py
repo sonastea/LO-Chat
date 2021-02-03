@@ -1,3 +1,4 @@
+import functools
 from datetime import datetime
 from app import db
 from app.auth import bp
@@ -5,12 +6,29 @@ from app.auth.forms import LoginForm, RegistrationForm
 from app.models import User
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user
+from flask_socketio import disconnect
 from werkzeug.urls import url_parse
+
+
+def authenticated_only(u):
+    """
+    Decorator that disconnects non-authenicated user
+    Compatible with socketio event handlers
+    """
+    @functools.wraps(u)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return u(*args, **kwargs)
+    return wrapped
 
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    """View function to handle user logins"""
+    """
+    View function to handle user login authenication
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()
@@ -27,16 +45,20 @@ def login():
     return render_template('auth/login.html', title='Sign In', form=form)
 
 
-@bp.route('/logout')
+@bp.route('/logout', methods=['GET'])
 def logout():
-    """View function to handle user logouts"""
+    """
+    View function to handle user logout
+    """
     logout_user()
     return redirect(url_for('main.index'))
 
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-    """View function to handle user registration"""
+    """
+    View function to handle user registration
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = RegistrationForm()

@@ -3,8 +3,10 @@ from app.models import User
 
 app = create_app()
 
+
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
+
 
 @app.shell_context_processor
 def make_shell_context():

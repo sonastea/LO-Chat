@@ -1,4 +1,5 @@
-from app import socketio 
+from app import socketio, db 
+from app.models import Message
 from flask_login import current_user
 from flask_socketio import send, emit
 from app.auth.routes import authenticated_only
@@ -22,3 +23,6 @@ def handle_message(message, methods=['GET', 'POST']):
     Message is then sent and broadcasted to all users.
     """
     emit('message', (message, current_user.username), broadcast=True)
+    msg = Message(body=message, sender=current_user)
+    db.session.add(msg)
+    db.session.commit()

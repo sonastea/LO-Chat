@@ -1,0 +1,43 @@
+.container {
+    margin-top: 1em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.msg-container {
+    display: block;
+    width: 100%;
+    height: 5vh;
+}
+
+.msg-sender {
+    margin: 0;
+    position: relative;
+}
+
+.msg-box {
+    position: relative;
+}
+
+.msg-message {
+    margin: 0;
+}
+
+.control-label {
+    display: none;
+}
+
+.nonResize {
+    resize: none;
+}
+
+input#submit {
+    position:relative;
+    float: right !important;
+    height: 3em;
+    bottom: 3em;
+    left: 4em;
+}
+
+textarea.form-control {
+    height: 3em;
+}

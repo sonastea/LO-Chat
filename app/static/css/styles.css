@@ -22,7 +22,7 @@
     margin: 0;
 }
 
-.control-label {
+.no-label {
     display: none;
 }
 
@@ -30,8 +30,8 @@
     resize: none;
 }
 
-input#submit {
-    position:relative;
+#chat-send {
+    position: relative;
     float: right !important;
     height: 3em;
     bottom: 3em;

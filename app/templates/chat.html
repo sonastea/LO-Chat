@@ -2,20 +2,21 @@
 
 <html>
 {% block app_content %}
-<head>
-</head>
 
-<body>
-    <h3>Hello, {{ current_user.username }} </h3>
-    <h2>Test Room</h1>
-    <ul id="chatbox"></ul>
-    
-    <form method="POST", id="msg-form">
-        {{ msg.hidden_tag() }}
-        {{ msg.message(placeholder="LO:Message") }} 
-        {{ msg.submit(value="Send") }}
-        <!--<button type='button' id="sendbutton">Send</button>-->
+<div class="container-fluid">
+
+    <div class="row">
+        <ul id="chat-box"></ul>
+    </div>
+
+    <form id="msg-form" method="POST">
+        <div class="row">
+            {{ form.message(class="form-control nonResize", placeholder="LO:MESSAGE") }}
+            {{ form.submit(class="btn btn-primary", value="Send") }}
+        </div>
     </form>
-</body>
+
+</div>
+
 {% endblock %}
 </html>

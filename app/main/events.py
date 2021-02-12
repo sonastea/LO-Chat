@@ -5,6 +5,14 @@ from flask_socketio import send, emit
 from app.auth.routes import authenticated_only
 
 
+@socketio.on('connect', namespace='/chat')
+def connect():
+    """
+    Sends a message to all users in the `/chat` namespace that a user joined the chat.
+    """
+    send(("{0} has joined the chat.").format(current_user.username), broadcast=True)
+
+
 @socketio.on('event', namespace='/chat')
 def handle_my_event(arg1, methods=['GET', 'POST']):
     """
@@ -12,7 +20,6 @@ def handle_my_event(arg1, methods=['GET', 'POST']):
     A response is sent back to inform that its event succeeded.
     """
     print('Recieved event: ' + str(arg1))
-    emit('response', str(arg1))
 
 
 @socketio.on('message', namespace='/chat')

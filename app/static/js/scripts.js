@@ -50,4 +50,14 @@ $(document).ready(function() {
         // Reset message field
         msg.val('');
     });
+
+
+    /*
+     *  Every keyup when writing a message will trigger a count of current characters
+     *  and display it near the send button.
+     */
+    $('#chat-box').keyup(() => {
+        var c = $('#chat-box').val().length;
+        $('#char-current').text(c);
+    });
 });

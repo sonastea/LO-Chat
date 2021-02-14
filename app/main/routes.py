@@ -27,8 +27,9 @@ def chat():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404(description='The user {} doesn\'t exist'.format(username))
     page = request.args.get('page', 1, type=int)
-    messages = user.messages.order_by(Message.timestamp.asc()).paginate(
-        page, current_app.config['MESSAGES_PER_PAGE'], False)
+    messages = user.messages.filter((Message.body != '') & (Message.body != None)).order_by(
+        Message.timestamp.desc()).paginate(
+            page, current_app.config['MESSAGES_PER_PAGE'], False)
     next_url = url_for('main.user', username=user.username,
                        page=messages.next_num) if messages.has_next else None
     prev_url = url_for('main.user', username=user.username,

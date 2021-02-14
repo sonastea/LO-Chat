@@ -10,9 +10,13 @@
     </div>
 
     <form id="msg-form" method="POST">
-        <div class="row">
-            {{ form.message(id="chat-box", class="form-control nonResize", placeholder="LO:MESSAGE") }}
+        <div class="">
+            {{ form.message(id="chat-box", class="form-control nonResize", minlength=1, maxlength=320) }}
             {{ form.submit(id="chat-send", class="btn btn-primary", value="Send") }}
+            <div id="char-count">
+                <span id="char-current" class="characters">0</span>
+                <span id="char-max" class="characters">/320</span>                
+            </div>
         </div>
     </form>
 

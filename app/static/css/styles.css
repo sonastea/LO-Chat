@@ -38,6 +38,20 @@
     left: 4em;
 }
 
+#char-count {
+    position: relative;
+    text-align: end;
+}
+
+#char-current {
+    left: 8.2em;
+}
+
+.characters {
+    position: relative;
+    left: 7.9em;
+}
+
 textarea.form-control {
     height: 3em;
 }

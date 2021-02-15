@@ -3,22 +3,21 @@
 <html>
 {% block app_content %}
 
-<div class="container-fluid">
+<div>
 
-    <div class="row">
+    <div class="row container-fluid">
         <ul id="chat-window"></ul>
     </div>
 
-    <form id="msg-form" method="POST">
-        <div class="">
-            {{ form.message(id="chat-box", class="form-control nonResize", minlength=1, maxlength=320) }}
-            {{ form.submit(id="chat-send", class="btn btn-primary", value="Send") }}
-            <div id="char-count">
-                <span id="char-current" class="characters">0</span>
-                <span id="char-max" class="characters">/320</span>                
+    <form id="msg-form" class="row container-fluid" method="POST">
+            {{ form.message(id="chat-box", class="input-group form-control nonResize", minlength=1, maxlength=320) }}
+            {{ form.submit(id="chat-send", class="input-group-append btn btn-primary", value="Send") }}
+            <div class="row container-fluid" style= "padding-top: 39px">
+                <div id="char-current" class="char-count input-group-append">0</div>
+                <div id="char-max" class="char-count input-group-append">/320</div>
             </div>
-        </div>
     </form>
+
 
 </div>
 

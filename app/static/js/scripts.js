@@ -23,6 +23,7 @@ $(document).ready(function() {
             : $('#chat-window').append('<li class="list-unstyled">' + msg + '</li>');
     });
 
+
     /*
      *  Listens to the enter key to be used as the send key for messages.
      *  Shift+Enter starts a new line. Enter doesn't do anything unless there's text.
@@ -60,4 +61,13 @@ $(document).ready(function() {
         var c = $('#chat-box').val().length;
         $('#char-current').text(c);
     });
+
+    /*
+     *  Reset current character count when the chat-send button is clicked.
+     *
+     */
+    $('#chat-send').on('click', () => {
+        $('#char-current').text('0');
+    });
+
 });

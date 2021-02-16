@@ -13,6 +13,16 @@ $(document).ready(function() {
         console.log(response);
     });
 
+    /*
+     *  An 'active' class is added to the present active tab.      
+     *  This highlights the active tab in the navbar.
+     */
+    var url = window.location;
+    $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+    $('ul.nav a').filter(function() {
+        return this.href == url;
+    }).parent().addClass('active');
+
 
     /*
      *  Message is relayed from the server and sent back here to the client.

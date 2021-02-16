@@ -1,46 +1,50 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% extends 'bootstrap/base.html' %}
 
+
 <html lang="en">
     <!-- TODO: Style navbar and rest of sites with bootstrap -->
     {% block scripts %}
-    {{ super() }}
-    <!-- socket.io -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"></script>
-    <!-- javascript file -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        {{ super() }}
+        <!-- socket.io -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"></script>
+        <!-- javascript file -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     {% endblock %}
 
     {% block styles %}
-    {{ super() }}
-    <!-- css file -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        {{ super() }}
+        <!-- css file -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     {% endblock %}
     
     {% block title %}{{ title }} LO:Chat{% endblock %}
 
+
 {% block navbar %}
-    <nav class="navbar navbar-default">
-        <!-- Navigation Bar -->
-        <ul class="nav navbar-nav">
-        <li><a href="{{ url_for('main.index') }}">LO:Home</a></li>
+    <nav class="navbar navigation">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="{% if page == 'home' %}active{% endif %}"><a href="{{ url_for('main.index') }}">LO:Home</a></li>
         {% if current_user.is_anonymous %}
             <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         {% else %}
-            <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+            <li><a href="{{ url_for('main.user', username=current_user.username) }}">
+                Profile</a></li>
             <li><a href="{{ url_for('main.chat') }}">Chat</a></li>
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         {% endif %}
+
         </ul>
     </nav>
 {% endblock %}
+
 
 {% block content %}
     <div class="container-fluid">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-            <div class = "alert alert-info" role="alert">{{ message }}</div>
+                <div class = "alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
         {% endwith %}

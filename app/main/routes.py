@@ -7,12 +7,13 @@ from app.models import User, Message
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
+@bp.route('/home', methods=['GET', 'POST'])
 def index():
     """
     View function for the main page once the user signed in.
     User is redirected to "auth.login" if not logged in by 'login_required'.
     """
-    return render_template('index.html')
+    return render_template('index.html', page='home')
 
 
 @bp.route('/chat', methods=['GET', 'POST']) 

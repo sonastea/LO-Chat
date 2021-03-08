@@ -6,6 +6,10 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 
+
+import eventlet
+eventlet.monkey_patch()
+
 socketio = SocketIO()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -13,13 +17,17 @@ login = LoginManager()
 bootstrap = Bootstrap()
 login.login_view = 'auth.login'
 login.login_message = ('Please log in to access this page.')
+login.refresh_view = 'auth.login'
+login.needs_refresh_message = ('Please login to access this page.')
+login.needs_refresh_message_category = 'info'
+login.session_protection = 'strong'
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    socketio.init_app(app)
+    socketio.init_app(app, async_mode='eventlet')
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)

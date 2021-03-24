@@ -56,3 +56,57 @@ html, body {
 textarea.form-control {
     height: 3em;
 }
+
+.room-attr {
+    padding: 5 5 5 0;
+}
+
+.room-name {
+    padding: 5 5 5 0;
+    font-size: x-large;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.room-desc {
+    padding: 5 5 5 0;
+}
+
+.room-memb {
+    padding: 8 0;
+}
+
+.disableClick {
+    pointer-events: none;
+}
+
+.btn-join,
+.btn-join:active,
+.btn-join:focus {
+    padding: 5 5;
+    color: white;
+    background-color: lightskyblue;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.btn-joined {
+    padding: 5 5;
+    opacity: 0.85;
+    color: lightskyblue;
+    background-color: white;
+    font-weight: bold;
+    border: solid 2px lightskyblue;
+}
+
+.btn-join:hover {
+    opacity: 1.0;
+    color: #FA87A0;
+    border-color: white;
+}
+
+.btn-joined:hover {
+    opacity: 1.0;
+    color: #FA87A0;
+    border-color: lightskyblue;
+}

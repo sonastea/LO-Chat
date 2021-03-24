@@ -3,11 +3,14 @@
 
 
 <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
     <!-- TODO: Style navbar and rest of sites with bootstrap -->
     {% block scripts %}
         {{ super() }}
         <!-- socket.io -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
         <!-- javascript file -->
         <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     {% endblock %}
@@ -30,8 +33,18 @@
         {% else %}
             <li><a href="{{ url_for('main.user', username=current_user.username) }}">
                 Profile</a></li>
-            <li><a href="{{ url_for('main.chat') }}">Chat</a></li>
+            <li><a href="{{ url_for('main.browse') }}">Browse</a></li>
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            <li class="dropdown navbar-right">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Rooms <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  {% for room in joined_rooms %}
+                    <li><a href="{{ url_for('main.room', room=room.name) }}">{{ room.name }}</a></li>
+                  {% endfor %}
+                </ul>
+            </li>
         {% endif %}
 
         </ul>

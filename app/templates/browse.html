@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='js/browse.js')}}"></script>
+{% endblock %}
+
+
+{% block app_content %}
+  <div id="room-list" class="container">
+
+  <form id="create-room" class="form form-inline row" role="form" method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.name(class="col-md-5 nonResize form-control", maxlength=24) }}
+    {{ form.description(class="col-md-5 nonResize form-control", maxlength=128) }}
+    <div class="col-md-1" style="display: inline-block"> {{ form.type.label }} {{ form.type }} </div>
+    {{ form.submit(class="col-md-1 form-control") }}
+  </form>
+
+  <div data-number="1">
+    {% for room in rooms %}
+      <div class="room list-group-item col-md-12 row row-no-gutters"> 
+        <div class="room-name room-attr col-md-5">{{ room.name }}</div>
+        <div class="room-desc room-attr col-md-5">{{ room.description }}</div>
+        <div class="room-memb room-attr col-md-1">{{ members[loop.index0] }}/5000</div>
+        {% if loop.index in joined_rooms|map(attribute='id') %}
+          <div class="btn-joined btn room-attr col-md-1">Joined</div>
+        {% else %}
+          <div class="btn-join btn room-attr col-md-1">Join</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  </div>
+{% endblock %}

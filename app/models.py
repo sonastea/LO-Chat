@@ -4,10 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
-room_users =  db.Table('room_users',
+room_users = db.Table('room_users', db.metadata,
+    db.Column('id', db.Integer, primary_key=True),
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('room_id', db.Integer, db.ForeignKey('room.id'))
-)
+    db.Column('room_id', db.Integer, db.ForeignKey('room.id')),
+    db.Column('role', db.Integer, default=0, nullable=False),
+    db.Column('is_active', db.Boolean, default=False, nullable=False)
+    )
 
 
 class User(UserMixin, db.Model):
@@ -19,7 +22,7 @@ class User(UserMixin, db.Model):
     messages = db.relationship('Message', backref='sender', lazy='dynamic')
     rooms = db.relationship(
         'Room', secondary=room_users,
-        backref = db.backref('members', lazy='dynamic'))
+        backref='members', lazy='joined')
 
 
     def __repr__(self):
@@ -32,12 +35,12 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
+    
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-    
+
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,8 +58,10 @@ class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.Boolean, default=False)
     name = db.Column(db.String(24), index=True, unique=True)
+    description = db.Column(db.String(128))
     created = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 
     def __repr__(self):
         return f"<Room {self.name}>"

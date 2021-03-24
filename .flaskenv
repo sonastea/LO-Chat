@@ -1,3 +1,3 @@
 FLASK_APP=chat.py
 FLASK_ENV=development
-FLASK_DEBUG=false
+FLASK_DEBUG=true

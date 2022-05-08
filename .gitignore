@@ -10,3 +10,7 @@ __pycache__/
 **/.DS_Store
 
 app.db-journal
+
+# compiled binaries
+server
+!server/

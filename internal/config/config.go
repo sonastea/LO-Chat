@@ -1,4 +1,4 @@
-package configs
+package config
 
 import (
 	"os"
@@ -8,9 +8,9 @@ import (
 	"github.com/sonastea/LO-Chat/internal/server/http"
 )
 
-type Configs struct{}
+type Config struct{}
 
-func (cfg *Configs) HTTP() (*http.Config, error) {
+func (cfg *Config) HTTP() (*http.Config, error) {
 	return &http.Config{
 		Host:             "0.0.0.0",
 		Port:             "8080",
@@ -20,6 +20,6 @@ func (cfg *Configs) HTTP() (*http.Config, error) {
 	}, nil
 }
 
-func NewConfig() (*Configs, error) {
-	return &Configs{}, nil
+func NewConfig() (*Config, error) {
+	return &Config{}, nil
 }

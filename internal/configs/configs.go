@@ -12,6 +12,7 @@ type Configs struct{}
 
 func (cfg *Configs) HTTP() (*http.Config, error) {
 	return &http.Config{
+		Host:             "0.0.0.0",
 		Port:             "8080",
 		TemplateBasePath: strings.TrimSpace(os.Getenv("TEMPLATES_BASEPATH")),
 		ReadTimeout:      10 * time.Second,

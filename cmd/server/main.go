@@ -23,7 +23,7 @@ func main() {
 		return
 	}
 
-    server := http.NewServer(srvCfg)
+	server := http.NewServer(srvCfg)
 
-    server.Start()
+	server.Start()
 }

@@ -3,7 +3,6 @@ package http
 import (
 	"net/http"
 	"regexp"
-	"time"
 )
 
 func UserRoutes(h *http.ServeMux) {

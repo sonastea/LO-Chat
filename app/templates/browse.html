@@ -20,7 +20,7 @@
 
   <div data-number="1">
     {% for room in rooms %}
-      <div class="room list-group-item col-md-12 row row-no-gutters"> 
+      <div class="room list-group-item col-md-12 row row-no-gutters">
         <div class="room-name room-attr col-md-5">{{ room.name }}</div>
         <div class="room-desc room-attr col-md-5">{{ room.description }}</div>
         <div class="room-memb room-attr col-md-1">{{ members[loop.index0] }}/5000</div>

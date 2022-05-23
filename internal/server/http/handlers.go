@@ -15,6 +15,7 @@ func initRoutes() *http.ServeMux {
 
 	Routes(handler)
 	UserRoutes(handler)
+	RoomRoutes(handler)
 
 	return handler
 }

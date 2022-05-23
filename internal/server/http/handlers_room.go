@@ -58,5 +58,10 @@ func join_room(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+    if r.Method != "PUT" {
+        w.WriteHeader(http.StatusMethodNotAllowed)
+        w.Write([]byte("500 - Only PUT method is supported."))
+        return
+    }
     fmt.Fprintf(w, "Successfully joined room %s", r.URL.Path[15:])
 }

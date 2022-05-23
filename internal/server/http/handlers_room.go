@@ -17,6 +17,7 @@ type room struct {
 func RoomRoutes(h *http.ServeMux) {
 	h.HandleFunc("/rooms/", rooms)
 	h.HandleFunc("/api/create_room", create_room)
+	h.HandleFunc("/api/join_room/", join_room)
 }
 
 func rooms(w http.ResponseWriter, r *http.Request) {
@@ -32,11 +33,7 @@ func rooms(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-
-	for _, room := range rooms {
-		fmt.Printf("[%t] %s-%s\n", room.Private, room.Name, room.Description)
-	}
-	fmt.Fprintf(w, "%+v", rooms)
+    renderTemplate(w, "browse", rooms)
 }
 
 func create_room(w http.ResponseWriter, r *http.Request) {
@@ -52,4 +49,14 @@ func create_room(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(body, &b)
 	fmt.Printf("%t, %s-%s", b.Private, b.Name, b.Description)
 	fmt.Fprintf(w, "[%t] %s-%s", b.Private, b.Name, b.Description)
+}
+
+func join_room(w http.ResponseWriter, r *http.Request) {
+	valid := regexp.MustCompile(`^api\/join_room\/([0-9]+/?)$`)
+    m := valid.FindStringSubmatch(r.URL.Path[1:])
+	if m == nil {
+		http.NotFound(w, r)
+		return
+	}
+    fmt.Fprintf(w, "Successfully joined room %s", r.URL.Path[15:])
 }

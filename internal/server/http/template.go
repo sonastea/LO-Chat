@@ -11,8 +11,8 @@ func parseTemplates(path string) {
 	templates = template.Must(template.ParseGlob(path + "*.html"))
 }
 
-func renderTemplate(w http.ResponseWriter, template string, u string) {
-	err := templates.ExecuteTemplate(w, template+".html", u)
+func renderTemplate(w http.ResponseWriter, template string, data any) {
+	err := templates.ExecuteTemplate(w, template+".html", data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

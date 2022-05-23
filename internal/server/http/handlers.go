@@ -32,7 +32,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	renderTemplate(w, "index", "t")
+	renderTemplate(w, "index", "")
 }
 
 func favicon(w http.ResponseWriter, r *http.Request) {

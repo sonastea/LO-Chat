@@ -5,19 +5,20 @@ import (
 	"regexp"
 )
 
-func NewHandler() *http.ServeMux {
-	handler := initRoutes()
-	return handler
+func NewServeMux() *http.ServeMux {
+	mux := initRoutes()
+	return mux
 }
 
 func initRoutes() *http.ServeMux {
-	handler := http.NewServeMux()
+	mux := http.NewServeMux()
 
-	Routes(handler)
-	UserRoutes(handler)
-	RoomRoutes(handler)
+	Routes(mux)
+	AuthRoutes(mux)
+	UserRoutes(mux)
+	RoomRoutes(mux)
 
-	return handler
+	return mux
 }
 
 func Routes(h *http.ServeMux) {

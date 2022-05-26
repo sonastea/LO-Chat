@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/rs/cors"
 )
 
 type Config struct {
@@ -12,22 +14,30 @@ type Config struct {
 	TemplateBasePath string
 	ReadTimeout      time.Duration
 	WriteTimeout     time.Duration
+	Debug            bool
 }
 
 type Server struct {
-	server  *http.Server
-	handler *http.ServeMux
-	config  *Config
+	server *http.Server
+	mux    *http.ServeMux
+	config *Config
 }
 
 func NewServer(srvCfg *Config) *Server {
 	parseTemplates(srvCfg.TemplateBasePath)
 
 	s := &Server{}
-	s.handler = NewHandler()
+	s.mux = NewServeMux()
+
+	h := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowCredentials: true,
+		Debug:            srvCfg.Debug,
+	})
+
 	s.server = &http.Server{
 		Addr:              fmt.Sprintf("%s:%s", srvCfg.Host, srvCfg.Port),
-		Handler:           s.handler,
+		Handler:           h.Handler(s.mux),
 		ReadTimeout:       srvCfg.ReadTimeout,
 		ReadHeaderTimeout: srvCfg.ReadTimeout,
 		WriteTimeout:      srvCfg.WriteTimeout,

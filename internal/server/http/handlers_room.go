@@ -14,10 +14,10 @@ type room struct {
 	Description string `json:"description"`
 }
 
-func RoomRoutes(h *http.ServeMux) {
-	h.HandleFunc("/rooms/", rooms)
-	h.HandleFunc("/api/create_room", create_room)
-	h.HandleFunc("/api/join_room/", join_room)
+func RoomRoutes(m *http.ServeMux) {
+	m.HandleFunc("/rooms/", rooms)
+	m.HandleFunc("/api/create_room", create_room)
+	m.HandleFunc("/api/join_room/", join_room)
 }
 
 func rooms(w http.ResponseWriter, r *http.Request) {

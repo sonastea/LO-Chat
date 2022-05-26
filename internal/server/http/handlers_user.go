@@ -5,8 +5,8 @@ import (
 	"regexp"
 )
 
-func UserRoutes(h *http.ServeMux) {
-	h.HandleFunc("/user/", userProfile)
+func UserRoutes(m *http.ServeMux) {
+	m.HandleFunc("/user/", userProfile)
 }
 
 func userProfile(w http.ResponseWriter, r *http.Request) {

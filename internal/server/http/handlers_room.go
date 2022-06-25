@@ -33,7 +33,7 @@ func rooms(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-    renderTemplate(w, "browse", rooms)
+	renderTemplate(w, "browse", rooms)
 }
 
 func create_room(w http.ResponseWriter, r *http.Request) {
@@ -53,15 +53,15 @@ func create_room(w http.ResponseWriter, r *http.Request) {
 
 func join_room(w http.ResponseWriter, r *http.Request) {
 	valid := regexp.MustCompile(`^api\/join_room\/([0-9]+/?)$`)
-    m := valid.FindStringSubmatch(r.URL.Path[1:])
+	m := valid.FindStringSubmatch(r.URL.Path[1:])
 	if m == nil {
 		http.NotFound(w, r)
 		return
 	}
-    if r.Method != "PUT" {
-        w.WriteHeader(http.StatusMethodNotAllowed)
-        w.Write([]byte("500 - Only PUT method is supported."))
-        return
-    }
-    fmt.Fprintf(w, "Successfully joined room %s", r.URL.Path[15:])
+	if r.Method != "PUT" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.Write([]byte("500 - Only PUT method is supported."))
+		return
+	}
+	fmt.Fprintf(w, "Successfully joined room %s", r.URL.Path[15:])
 }

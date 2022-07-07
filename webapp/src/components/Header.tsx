@@ -23,7 +23,7 @@ const Header = () => {
       case "home":
         setTabValue(0);
         break;
-      case "browse":
+      case "chat":
         setTabValue(1);
         break;
       case "about":
@@ -56,7 +56,7 @@ const Header = () => {
               value={tabValue}
             >
               <Tab label="Home" href="/" />
-              <Tab label="Browse" href="/browse" />
+              <Tab label="Chat" href="/chat" />
               <Tab label="About" href="/about" />
             </Tabs>
 

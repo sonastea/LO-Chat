@@ -10,7 +10,7 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const pages = ["Home", "Browse", "About", "Login", "Signup"];
+const pages = ["Home", "Chat", "About", "Login", "Signup"];
 
 const NavigationDrawer = () => {
   const { pathname } = useRouter();

@@ -18,7 +18,13 @@ const NavigationDrawer = () => {
 
   return (
     <>
-      <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <Drawer
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        PaperProps={{
+          sx: { width: "75%" },
+        }}
+      >
         <List>
           {pages.map((page, index) => (
             <ListItemButton
@@ -26,9 +32,12 @@ const NavigationDrawer = () => {
               onClick={() => setOpenDrawer(false)}
               key={index}
               selected={pathname.slice(1) === page.toLowerCase()}
+              sx={{ padding: "1em"}}
             >
-              <ListItemIcon>
-                <ListItemText sx={{ color: "black" }}>{page}</ListItemText>
+              <ListItemIcon sx={{ width: "50%" }}>
+                <ListItemText sx={{ color: "black", textAlign: "center" }}>
+                  {page}
+                </ListItemText>
               </ListItemIcon>
             </ListItemButton>
           ))}

@@ -6,11 +6,11 @@ type message = {
   action: string;
   body: string;
   room: {
-    id: string;
+    xid: string;
     name: string;
   };
   sender: {
-    id: string;
+    xid: string;
     name: string;
   };
   type: string;
@@ -58,8 +58,8 @@ const Chat = () => {
           setUserID(JSON.parse(e.data).body.split(" ").shift());
         }
         setChatHistory((prev: any) => [...prev, JSON.parse(e.data)]);
-        if (JSON.parse(e.data).room.id) {
-          setRoomID(JSON.parse(e.data).room.id);
+        if (JSON.parse(e.data).room.xid) {
+          setRoomID(JSON.parse(e.data).room.xid);
         }
       };
     }
@@ -71,8 +71,8 @@ const Chat = () => {
         JSON.stringify({
           type: "normal",
           body: message,
-          room: { id: roomID, name: room },
-          sender: { id: userID },
+          room: { xid: roomID, name: room },
+          sender: { xid: userID },
         })
       );
     }
@@ -91,7 +91,7 @@ const Chat = () => {
               JSON.stringify({
                 type: "command",
                 action: "join-room",
-                room: { id: roomID, name: room },
+                room: { xid: roomID, name: room },
               })
             );
           }
@@ -119,7 +119,7 @@ const Chat = () => {
               m.sender && {
                 display: "flex",
                 justifyContent:
-                  userID === m.sender.id ? "flex-end" : "flex-start",
+                  userID === m.sender.xid ? "flex-end" : "flex-start",
               }
             }
           >
@@ -127,7 +127,7 @@ const Chat = () => {
               style={
                 m.sender && {
                   backgroundColor:
-                    userID === m.sender.id
+                    userID === m.sender.xid
                       ? theme.palette.secondary.main
                       : "lightgrey",
                   borderRadius: "10px",

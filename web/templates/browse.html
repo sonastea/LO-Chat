@@ -1,0 +1,21 @@
+<html>
+
+<div id="room-list" class="container">
+  <form id="create-room" class="form form-inline row" role="form" method="POST">
+    <input type="text" description="name" /></input>
+    <input type="text" placeholder="description"></input>
+    <button type="submit">Submit</submit>
+  </form>
+</div>
+<div>
+  {{range .}}
+  <div>
+    {{if .Private}} Private {{else}} Public {{end}}
+    {{.Name}}
+    {{.Description}}
+  </div>
+  {{end}}
+
+</div>
+
+</html>

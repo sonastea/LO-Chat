@@ -1,4 +1,4 @@
-.env
+.env*
 **/*.db
 migrations-backup/
 
@@ -10,3 +10,7 @@ __pycache__/
 **/.DS_Store
 
 app.db-journal
+
+# compiled binaries
+server
+!server/

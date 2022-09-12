@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -27,19 +28,20 @@ const NavigationDrawer = () => {
       >
         <List>
           {pages.map((page, index) => (
-            <ListItemButton
-              href={`/${page.toLowerCase()}`}
-              onClick={() => setOpenDrawer(false)}
-              key={index}
-              selected={pathname.slice(1) === page.toLowerCase()}
-              sx={{ padding: "1em"}}
-            >
-              <ListItemIcon sx={{ width: "50%" }}>
-                <ListItemText sx={{ color: "black", textAlign: "center" }}>
-                  {page}
-                </ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
+            <Link href={`/${page.toLowerCase()}`} key={index} passHref>
+              <ListItemButton
+                href={`/${page.toLowerCase()}`}
+                onClick={() => setOpenDrawer(false)}
+                selected={pathname.slice(1) === page.toLowerCase()}
+                sx={{ padding: "1em" }}
+              >
+                <ListItemIcon sx={{ width: "50%" }}>
+                  <ListItemText sx={{ color: "black", textAlign: "center" }}>
+                    {page}
+                  </ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </Link>
           ))}
         </List>
       </Drawer>

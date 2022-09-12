@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/system";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Header from "../src/components/Header";
+import Navbar from "../src/components/Navbar";
 import "../styles/globals.css";
 
 const theme = createTheme({
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="LO:Chat" content="LO:Chat webapp" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Navbar />
       <Component {...pageProps} />
     </ThemeProvider>
   );

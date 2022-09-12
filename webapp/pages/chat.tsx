@@ -28,7 +28,7 @@ const Chat = () => {
       typeof window !== "undefined"
         ? new WebSocket("ws://192.168.0.2:8080/ws")
         : null,
-    []
+    [],
   );
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Chat = () => {
           body: message,
           room: { xid: roomID, name: room },
           sender: { xid: userID },
-        })
+        }),
       );
     }
   };
@@ -92,7 +92,7 @@ const Chat = () => {
                 type: "command",
                 action: "join-room",
                 room: { xid: roomID, name: room },
-              })
+              }),
             );
           }
         }}

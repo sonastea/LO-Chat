@@ -5,7 +5,7 @@ interface ButtonOptions {
 }
 
 const FormButton = <T extends React.ElementType>(
-  props: ButtonProps<T, { component?: T }> & ButtonOptions
+  props: ButtonProps<T, { component?: T }> & ButtonOptions,
 ) => {
   return <Button {...props}>{props.label}</Button>;
 };

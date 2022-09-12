@@ -28,7 +28,7 @@ const Signup = () => {
       setPasswordError(`Passwords do not match`);
     } else if (password.length < PASSWORD_MIN_LENGTH) {
       setPasswordError(
-        `Password must be a minimum of ${PASSWORD_MIN_LENGTH} characters`
+        `Password must be a minimum of ${PASSWORD_MIN_LENGTH} characters`,
       );
     } else setPasswordError("");
   }, [password2, password]);

@@ -23,6 +23,7 @@ const Navbar = () => {
   );
 
   useEffect(() => {
+    if (pages.indexOf(pathname) === -1) setTabValue(false);
     pages.map((page, index) => {
       if (pathname === page) setTabValue(index);
     });

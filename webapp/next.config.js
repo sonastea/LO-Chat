@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: process.env.NODE_ENV === "production",
   swcMinify: true,
   async redirects() {
     return [

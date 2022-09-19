@@ -16,6 +16,8 @@ type message = {
   type: string;
 };
 
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL;
+
 const Chat = () => {
   const [userID, setUserID] = useState<string | null>(null);
   const [message, setMessage] = useState<string>("");
@@ -26,7 +28,7 @@ const Chat = () => {
   const ws = useMemo(
     () =>
       typeof window !== "undefined"
-        ? new WebSocket("ws://192.168.0.2:8080/ws")
+        ? new WebSocket(`wss://${WS_URL}/ws`)
         : null,
     [],
   );
@@ -64,6 +66,13 @@ const Chat = () => {
       };
     }
   }, [ws, chatHistory, userID]);
+
+  useEffect(() => {
+    return () => {
+      ws?.close(1000, "Unmounted chat page");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sendMessage = () => {
     if (ws) {

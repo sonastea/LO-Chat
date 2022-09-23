@@ -1,8 +1,8 @@
+import Navbar from "@components/Navbar";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/system";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Navbar from "../src/components/Navbar";
 import "../styles/globals.css";
 
 const theme = createTheme({

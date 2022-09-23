@@ -1,6 +1,6 @@
+import FormButton from "@components/FormButton";
 import { FormControl, Grid, TextField } from "@mui/material";
 import { useState } from "react";
-import FormButton from "../src/components/FormButton";
 
 const Login = () => {
   const [username, setUsername] = useState<string>();

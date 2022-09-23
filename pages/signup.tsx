@@ -1,6 +1,6 @@
+import FormButton from "@components/FormButton";
 import { FormControl, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import FormButton from "../src/components/FormButton";
 
 const MIN_LENGTH: number = 3;
 const MAX_LENGTH: number = 45;

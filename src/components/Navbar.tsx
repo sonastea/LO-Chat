@@ -4,7 +4,6 @@ import {
   Tab,
   Tabs,
   Toolbar,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -19,7 +18,7 @@ const Navbar = () => {
   const { pathname } = useRouter();
   const pages = useMemo(() => ["/home", "/chat", "/about"], []);
   const [tabValue, setTabValue] = useState<number | boolean>(
-    pages.indexOf(pathname) !== -1 ? pages.indexOf(pathname) : false,
+    pages.indexOf(pathname) !== -1 ? pages.indexOf(pathname) : false
   );
 
   useEffect(() => {
@@ -34,9 +33,14 @@ const Navbar = () => {
       <Toolbar>
         {mobile ? (
           <>
-            <Typography sx={{ fontSize: "1.5rem", paddingLeft: "5%" }}>
+            <Button
+              sx={{ fontSize: "1.5rem", paddingLeft: "5%" }}
+              href="/"
+              variant="text"
+              color="secondary"
+            >
               LO:Home
-            </Typography>
+            </Button>
             <NavigationDrawer />
           </>
         ) : (

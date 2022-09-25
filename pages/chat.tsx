@@ -1,3 +1,5 @@
+import LoginIcon from "@mui/icons-material/Login";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Box,
   Button,
@@ -14,9 +16,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import LoginIcon from "@mui/icons-material/Login";
-import SendIcon from "@mui/icons-material/Send";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type message = {
   action: string;
@@ -64,7 +64,7 @@ const Chat = () => {
       ws.onopen = () => {
         setChatHistory((prev: any) => [
           ...prev,
-          { body: "Connected to websocket" },
+          { body: "Connected to chat server" },
         ]);
       };
     }
@@ -113,60 +113,59 @@ const Chat = () => {
   };
 
   return (
-    <Fragment>
-      <Container>
-        <Paper elevation={3}>
-          <Box display="flex" flexDirection="column">
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Grid>
-                  <TextField
-                    variant="filled"
-                    fullWidth
-                    onChange={(e) => setRoom(e.target.value)}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LoginIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    label="Enter a room to chat"
-                  />
-                </Grid>
-                <Grid>
-                  <Button
-                    fullWidth
-                    variant="text"
-                    onClick={() => {
-                      setChatHistory([]);
-                      if (ws?.onopen) {
-                        setRoomID("");
-                        ws.send(
-                          JSON.stringify({
-                            type: "command",
-                            action: "join-room",
-                            room: { xid: roomID, name: room },
-                          })
-                        );
-                      }
-                    }}
-                  >
-                    Join
-                  </Button>
-                  <Divider />
-                </Grid>
+    <Container>
+      <Paper elevation={3}>
+        <Box display="flex" flexDirection="column">
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Grid>
+                <TextField
+                  variant="filled"
+                  fullWidth
+                  onChange={(e) => setRoom(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LoginIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  label="Enter a room to chat"
+                />
               </Grid>
-
-              <Grid item xs={12}>
-                <List
-                  id="chatbox"
-                  sx={{
-                    maxHeight: { xs: "30vh", md: "70vh" },
-                    height: { xs: "50vh", md: "70vh" },
-                    overflow: "auto",
+              <Grid>
+                <Button
+                  fullWidth
+                  variant="text"
+                  onClick={() => {
+                    setChatHistory([]);
+                    if (ws?.onopen) {
+                      setRoomID("");
+                      ws.send(
+                        JSON.stringify({
+                          type: "command",
+                          action: "join-room",
+                          room: { xid: roomID, name: room },
+                        })
+                      );
+                    }
                   }}
                 >
+                  Join
+                </Button>
+                <Divider />
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <List
+                id="chatbox"
+                sx={{
+                  maxHeight: { xs: "50vh", md: "70vh" },
+                  height: { xs: "50vh", md: "70vh" },
+                  overflow: "auto",
+                }}
+              >
                   {chatHistory.map((m: message, index: number) => (
                     <ListItem
                       key={index}
@@ -200,14 +199,15 @@ const Chat = () => {
                       </Grid>
                     </ListItem>
                   ))}
-                  <ListItem ref={scrollBottomRef}></ListItem>
-                </List>
-              </Grid>
+                <ListItem ref={scrollBottomRef}></ListItem>
+              </List>
+            </Grid>
 
-              <Grid item xs={6} sm={8} md={9} m={2}>
+            <Grid container wrap="nowrap" pl="16px" m={1}>
+              <Grid item flexGrow="1">
                 <FormControl fullWidth>
                   <TextField
-                    label="Type your message"
+                    label="Enter your message..."
                     variant="outlined"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -219,7 +219,7 @@ const Chat = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={1} m={2}>
+              <Grid item alignSelf="center">
                 <IconButton
                   onClick={sendMessage}
                   aria-label="Send message"
@@ -230,10 +230,10 @@ const Chat = () => {
                 </IconButton>
               </Grid>
             </Grid>
-          </Box>
-        </Paper>
-      </Container>
-    </Fragment>
+          </Grid>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 

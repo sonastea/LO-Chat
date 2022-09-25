@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const pages = ["Home", "Chat", "About", "Login", "Signup"];
+const pages = ["Home", "Chat", "Login", "Signup"];
 
 const NavigationDrawer = () => {
   const { pathname } = useRouter();

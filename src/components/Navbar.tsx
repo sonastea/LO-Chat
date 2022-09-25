@@ -59,9 +59,9 @@ const Navbar = () => {
                 <Link href="/chat" passHref>
                   <Tab label="Chat" />
                 </Link>
-                <Link href="/about" passHref>
+                {/* <Link href="/about" passHref>
                   <Tab label="About" />
-                </Link>
+                </Link> */}
               </Tabs>
 
               <Link href="/login" passHref>

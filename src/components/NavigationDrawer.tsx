@@ -49,6 +49,7 @@ const NavigationDrawer = () => {
         color="inherit"
         sx={{ marginLeft: "auto" }}
         onClick={() => setOpenDrawer(!openDrawer)}
+        aria-label="Toggle navigation drawer"
       >
         <MenuIcon />
       </IconButton>

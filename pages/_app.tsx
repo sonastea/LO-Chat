@@ -29,6 +29,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>LO:Chat</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta name="LO:Chat" content="LO:Chat webapp" />
+        <meta
+          name="description"
+          content="Come and LO:Chat. Chat and talk with online connections in many different chat rooms."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />

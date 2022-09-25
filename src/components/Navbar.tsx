@@ -40,6 +40,7 @@ const Navbar = () => {
                 href="/"
                 variant="text"
                 color="secondary"
+                aria-label="LO:Home"
               >
                 LO:Home
               </Button>

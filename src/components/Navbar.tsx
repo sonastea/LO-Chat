@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Box,
   Button,
   Tab,
   Tabs,
@@ -29,60 +30,62 @@ const Navbar = () => {
   }, [pages, pathname]);
 
   return (
-    <AppBar position="relative">
-      <Toolbar>
-        {mobile ? (
-          <>
-            <Button
-              sx={{ fontSize: "1.5rem", paddingLeft: "5%" }}
-              href="/"
-              variant="text"
-              color="secondary"
-            >
-              LO:Home
-            </Button>
-            <NavigationDrawer />
-          </>
-        ) : (
-          <>
-            <Tabs
-              textColor="inherit"
-              indicatorColor="secondary"
-              value={tabValue}
-            >
-              <Link href="/home" passHref>
-                <Tab label="Home" />
-              </Link>
-              <Link href="/chat" passHref>
-                <Tab label="Chat" />
-              </Link>
-              <Link href="/about" passHref>
-                <Tab label="About" />
-              </Link>
-            </Tabs>
-
-            <Link href="/login" passHref>
+    <Box mb="0.5rem">
+      <AppBar position="static">
+        <Toolbar>
+          {mobile ? (
+            <>
               <Button
-                sx={{ marginLeft: "auto" }}
-                color="inherit"
+                sx={{ fontSize: "1.5rem", paddingLeft: "5%" }}
+                href="/"
                 variant="text"
-              >
-                Login
-              </Button>
-            </Link>
-            <Link href="/signup" passHref>
-              <Button
-                sx={{ marginLeft: "10px" }}
-                variant="contained"
                 color="secondary"
               >
-                SignUp
+                LO:Home
               </Button>
-            </Link>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+              <NavigationDrawer />
+            </>
+          ) : (
+            <>
+              <Tabs
+                textColor="inherit"
+                indicatorColor="secondary"
+                value={tabValue}
+              >
+                <Link href="/home" passHref>
+                  <Tab label="Home" />
+                </Link>
+                <Link href="/chat" passHref>
+                  <Tab label="Chat" />
+                </Link>
+                <Link href="/about" passHref>
+                  <Tab label="About" />
+                </Link>
+              </Tabs>
+
+              <Link href="/login" passHref>
+                <Button
+                  sx={{ marginLeft: "auto" }}
+                  color="inherit"
+                  variant="text"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link href="/signup" passHref>
+                <Button
+                  sx={{ marginLeft: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                >
+                  SignUp
+                </Button>
+              </Link>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

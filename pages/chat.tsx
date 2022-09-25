@@ -1,6 +1,22 @@
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import LoginIcon from "@mui/icons-material/Login";
+import SendIcon from "@mui/icons-material/Send";
 
 type message = {
   action: string;
@@ -24,13 +40,14 @@ const Chat = () => {
   const [roomID, setRoomID] = useState<string | undefined>();
   const [room, setRoom] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<any[]>([]);
+  const scrollBottomRef = useRef<HTMLLIElement | null>(null);
   const theme = useTheme();
   const ws = useMemo(
     () =>
       typeof window !== "undefined"
         ? new WebSocket(`wss://${WS_URL}/ws`)
         : null,
-    [],
+    []
   );
 
   useEffect(() => {
@@ -50,6 +67,11 @@ const Chat = () => {
           { body: "Connected to websocket" },
         ]);
       };
+    }
+  }, [ws]);
+
+  useEffect(() => {
+    if (ws) {
       ws.onmessage = (e) => {
         // joining a room resets the chat history and
         // set client id from joining the room
@@ -64,8 +86,11 @@ const Chat = () => {
           setRoomID(JSON.parse(e.data).room.xid);
         }
       };
+      if (scrollBottomRef.current) {
+        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     }
-  }, [ws, chatHistory, userID]);
+  }, [ws, chatHistory]);
 
   useEffect(() => {
     return () => {
@@ -82,76 +107,133 @@ const Chat = () => {
           body: message,
           room: { xid: roomID, name: room },
           sender: { xid: userID },
-        }),
+        })
       );
     }
   };
 
   return (
-    <Box sx={{ m: 2 }}>
-      <div>Enter a room to join</div>
-      <input type="text" onChange={(e) => setRoom(e.target.value)} />
-      <button
-        onClick={() => {
-          setChatHistory([]);
-          if (ws?.onopen) {
-            setRoomID("");
-            ws.send(
-              JSON.stringify({
-                type: "command",
-                action: "join-room",
-                room: { xid: roomID, name: room },
-              }),
-            );
-          }
-        }}
-      >
-        Join
-      </button>
+    <Fragment>
+      <Container>
+        <Paper elevation={3}>
+          <Box display="flex" flexDirection="column">
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Grid>
+                  <TextField
+                    variant="filled"
+                    fullWidth
+                    onChange={(e) => setRoom(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LoginIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    label="Enter a room to chat"
+                  />
+                </Grid>
+                <Grid>
+                  <Button
+                    fullWidth
+                    variant="text"
+                    onClick={() => {
+                      setChatHistory([]);
+                      if (ws?.onopen) {
+                        setRoomID("");
+                        ws.send(
+                          JSON.stringify({
+                            type: "command",
+                            action: "join-room",
+                            room: { xid: roomID, name: room },
+                          })
+                        );
+                      }
+                    }}
+                  >
+                    Join
+                  </Button>
+                  <Divider />
+                </Grid>
+              </Grid>
 
-      <div>Send a message</div>
-      <input
-        type="text"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            sendMessage();
-          }
-        }}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={() => sendMessage()}>Send</button>
-      <div id="chatbox">
-        {chatHistory.map((m: message, index: number) => (
-          <div
-            key={index}
-            style={
-              m.sender && {
-                display: "flex",
-                justifyContent:
-                  userID === m.sender.xid ? "flex-end" : "flex-start",
-              }
-            }
-          >
-            <p
-              style={
-                m.sender && {
-                  backgroundColor:
-                    userID === m.sender.xid
-                      ? theme.palette.secondary.main
-                      : "lightgrey",
-                  borderRadius: "10px",
-                  maxWidth: "80%",
-                  overflowWrap: "break-word",
-                  padding: "5px",
-                }
-              }
-            >
-              {m.body}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Box>
+              <Grid item xs={12}>
+                <List
+                  id="chatbox"
+                  sx={{
+                    maxHeight: { xs: "30vh", md: "70vh" },
+                    height: { xs: "50vh", md: "70vh" },
+                    overflow: "auto",
+                  }}
+                >
+                  {chatHistory.map((m: message, index: number) => (
+                    <ListItem
+                      key={index}
+                      sx={
+                        m.sender && {
+                          display: "flex",
+                          justifyContent:
+                            userID === m.sender.xid ? "flex-end" : "flex-start",
+                        }
+                      }
+                    >
+                      <Grid container maxWidth="80%" width="fit-content">
+                        <ListItemText
+                          sx={
+                            m.sender && {
+                              background:
+                                userID === m.sender.xid
+                                  ? theme.palette.secondary.main
+                                  : "lightgrey",
+                              textAlign:
+                                userID === m.sender.xid ? "right" : "left",
+                              borderRadius: "10px",
+                              overflowWrap: "break-word",
+                              padding: "5px",
+                              width: "auto",
+                            }
+                          }
+                        >
+                          {m.body}
+                        </ListItemText>
+                      </Grid>
+                    </ListItem>
+                  ))}
+                  <ListItem ref={scrollBottomRef}></ListItem>
+                </List>
+              </Grid>
+
+              <Grid item xs={6} sm={8} md={9} m={2}>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Type your message"
+                    variant="outlined"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        sendMessage();
+                      }
+                    }}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={1} m={2}>
+                <IconButton
+                  onClick={sendMessage}
+                  aria-label="Send message"
+                  color="primary"
+                  sx={{ textAlign: "center", height: "auto" }}
+                >
+                  <SendIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
+      </Container>
+    </Fragment>
   );
 };
 

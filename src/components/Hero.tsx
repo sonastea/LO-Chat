@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import herobg from "../../public/images/hero-bg.jpg";
+import Image from "next/image";
 
 const hero = {
   title: "LO:Chat",
@@ -66,15 +66,14 @@ const Hero = () => {
           </Button>
         </Grid>
         <Grid item xs={12} md={5}>
-          <picture>
-            <img
-              src={herobg.src}
-              alt=""
-              style={{
-                maxWidth: "100%",
-              }}
-            />
-          </picture>
+          <Image
+            src={`/images/hero-bg.jpg`}
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="cover"
+            alt="Hero background"
+          />
         </Grid>
       </Grid>
     </Box>

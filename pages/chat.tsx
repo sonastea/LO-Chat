@@ -32,13 +32,20 @@ type message = {
   type: string;
 };
 
+type room = {
+  xid: string;
+  name: string;
+  description: string;
+  owner_id: string;
+  private: boolean;
+};
+
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL;
 
 const Chat = () => {
   const [userID, setUserID] = useState<string | null>(null);
   const [message, setMessage] = useState<string>("");
-  const [roomID, setRoomID] = useState<string | undefined>();
-  const [room, setRoom] = useState<string>("");
+  const [room, setRoom] = useState<room>({} as room);
   const [chatHistory, setChatHistory] = useState<any[]>([]);
   const scrollBottomRef = useRef<HTMLLIElement | null>(null);
   const theme = useTheme();
@@ -49,6 +56,14 @@ const Chat = () => {
         : null,
     []
   );
+
+  const updateRoomInfo = (room_id: string, owner_id: string) => {
+    setRoom((room) => ({
+      ...room,
+      xid: room_id,
+      owner_id: owner_id,
+    }));
+  };
 
   useEffect(() => {
     if (ws) {
@@ -83,12 +98,12 @@ const Chat = () => {
         }
         setChatHistory((prev: any) => [...prev, JSON.parse(e.data)]);
         if (JSON.parse(e.data).room.xid) {
-          setRoomID(JSON.parse(e.data).room.xid);
+          updateRoomInfo(JSON.parse(e.data).room.xid, JSON.parse(e.data).room.owner_id);
+        }
+        if (scrollBottomRef.current) {
+          scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
         }
       };
-      if (scrollBottomRef.current) {
-        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      }
     }
   }, [ws, chatHistory]);
 
@@ -105,7 +120,7 @@ const Chat = () => {
         JSON.stringify({
           type: "normal",
           body: message,
-          room: { xid: roomID, name: room },
+          room: { xid: room.xid, name: room.name },
           sender: { xid: userID },
         })
       );
@@ -122,7 +137,12 @@ const Chat = () => {
                 <TextField
                   variant="filled"
                   fullWidth
-                  onChange={(e) => setRoom(e.target.value)}
+                  onChange={(e) => {
+                    setRoom((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }));
+                  }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -140,12 +160,12 @@ const Chat = () => {
                   onClick={() => {
                     setChatHistory([]);
                     if (ws?.onopen) {
-                      setRoomID("");
+                      updateRoomInfo("", room.owner_id);
                       ws.send(
                         JSON.stringify({
                           type: "command",
                           action: "join-room",
-                          room: { xid: roomID, name: room },
+                          room: { xid: room.xid, name: room.name },
                         })
                       );
                     }
@@ -166,39 +186,39 @@ const Chat = () => {
                   overflow: "auto",
                 }}
               >
-                  {chatHistory.map((m: message, index: number) => (
-                    <ListItem
-                      key={index}
-                      sx={
-                        m.sender && {
-                          display: "flex",
-                          justifyContent:
-                            userID === m.sender.xid ? "flex-end" : "flex-start",
-                        }
+                {chatHistory.map((m: message, index: number) => (
+                  <ListItem
+                    key={index}
+                    sx={
+                      m.sender && {
+                        display: "flex",
+                        justifyContent:
+                          userID === m.sender.xid ? "flex-end" : "flex-start",
                       }
-                    >
-                      <Grid container maxWidth="80%" width="fit-content">
-                        <ListItemText
-                          sx={
-                            m.sender && {
-                              background:
-                                userID === m.sender.xid
-                                  ? theme.palette.secondary.main
-                                  : "lightgrey",
-                              textAlign:
-                                userID === m.sender.xid ? "right" : "left",
-                              borderRadius: "10px",
-                              overflowWrap: "break-word",
-                              padding: "5px",
-                              width: "auto",
-                            }
+                    }
+                  >
+                    <Grid container maxWidth="80%" width="fit-content">
+                      <ListItemText
+                        sx={
+                          m.sender && {
+                            background:
+                              userID === m.sender.xid
+                                ? theme.palette.secondary.main
+                                : "lightgrey",
+                            textAlign:
+                              userID === m.sender.xid ? "right" : "left",
+                            borderRadius: "10px",
+                            overflowWrap: "break-word",
+                            padding: "5px",
+                            width: "auto",
                           }
-                        >
-                          {m.body}
-                        </ListItemText>
-                      </Grid>
-                    </ListItem>
-                  ))}
+                        }
+                      >
+                        {m.body}
+                      </ListItemText>
+                    </Grid>
+                  </ListItem>
+                ))}
                 <ListItem ref={scrollBottomRef}></ListItem>
               </List>
             </Grid>

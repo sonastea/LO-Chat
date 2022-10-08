@@ -48,6 +48,7 @@ const Chat = () => {
   const [room, setRoom] = useState<room>({} as room);
   const [chatHistory, setChatHistory] = useState<any[]>([]);
   const scrollBottomRef = useRef<HTMLLIElement | null>(null);
+  const chatInput = useRef<HTMLInputElement | null>(null);
   const theme = useTheme();
   const ws = useMemo(
     () =>
@@ -127,7 +128,7 @@ const Chat = () => {
           sender: { xid: userID },
         })
       );
-      setMessage("");
+      chatInput.current!.value = "";
     }
   };
 
@@ -231,6 +232,7 @@ const Chat = () => {
               <Grid item flexGrow="1">
                 <FormControl fullWidth>
                   <TextField
+                    inputRef={chatInput}
                     label="Enter your message..."
                     variant="outlined"
                     onKeyDown={(e) => {

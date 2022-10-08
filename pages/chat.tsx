@@ -98,7 +98,10 @@ const Chat = () => {
         }
         setChatHistory((prev: any) => [...prev, JSON.parse(e.data)]);
         if (JSON.parse(e.data).room.xid) {
-          updateRoomInfo(JSON.parse(e.data).room.xid, JSON.parse(e.data).room.owner_id);
+          updateRoomInfo(
+            JSON.parse(e.data).room.xid,
+            JSON.parse(e.data).room.owner_id
+          );
         }
         if (scrollBottomRef.current) {
           scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -124,6 +127,7 @@ const Chat = () => {
           sender: { xid: userID },
         })
       );
+      setMessage("");
     }
   };
 

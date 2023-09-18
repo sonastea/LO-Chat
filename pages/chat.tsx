@@ -55,7 +55,7 @@ const Chat = () => {
       typeof window !== "undefined"
         ? new WebSocket(`wss://${WS_URL}/ws`)
         : null,
-    []
+    [],
   );
 
   const updateRoomInfo = (room_id: string, owner_id: string) => {
@@ -101,7 +101,7 @@ const Chat = () => {
         if (JSON.parse(e.data).room.xid) {
           updateRoomInfo(
             JSON.parse(e.data).room.xid,
-            JSON.parse(e.data).room.owner_id
+            JSON.parse(e.data).room.owner_id,
           );
         }
         if (scrollBottomRef.current) {
@@ -126,7 +126,7 @@ const Chat = () => {
           body: message,
           room: { xid: room.xid, name: room.name },
           sender: { xid: userID },
-        })
+        }),
       );
       chatInput.current!.value = "";
     }
@@ -141,7 +141,7 @@ const Chat = () => {
               <Grid>
                 <TextField
                   variant="filled"
-                  fullWidth
+                  style={{ width: "100%" }}
                   onChange={(e) => {
                     setRoom((prev) => ({
                       ...prev,
@@ -160,7 +160,7 @@ const Chat = () => {
               </Grid>
               <Grid>
                 <Button
-                  fullWidth
+                  style={{ width: "100%" }}
                   variant="text"
                   onClick={() => {
                     setChatHistory([]);
@@ -171,7 +171,7 @@ const Chat = () => {
                           type: "command",
                           action: "join-room",
                           room: { xid: room.xid, name: room.name },
-                        })
+                        }),
                       );
                     }
                   }}
@@ -230,7 +230,7 @@ const Chat = () => {
 
             <Grid container wrap="nowrap" pl="16px" m={1}>
               <Grid item flexGrow="1">
-                <FormControl fullWidth>
+                <FormControl style={{ width: "100%" }}>
                   <TextField
                     inputRef={chatInput}
                     label="Enter your message..."

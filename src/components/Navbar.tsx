@@ -17,9 +17,9 @@ const Navbar = () => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { pathname } = useRouter();
-  const pages = useMemo(() => ["/home", "/chat", "/about"], []);
+  const pages = useMemo(() => ["/home", "/chat"], []);
   const [tabValue, setTabValue] = useState<number | boolean>(
-    pages.indexOf(pathname) !== -1 ? pages.indexOf(pathname) : false
+    pages.indexOf(pathname) !== -1 ? pages.indexOf(pathname) : false,
   );
 
   useEffect(() => {
@@ -32,7 +32,10 @@ const Navbar = () => {
   return (
     <Box mb="0.5rem">
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar
+          style={{ display: "flex", justifyContent: "space-between" }}
+          component="nav"
+        >
           {mobile ? (
             <>
               <Button
@@ -49,39 +52,38 @@ const Navbar = () => {
           ) : (
             <>
               <Tabs
-                textColor="inherit"
                 indicatorColor="secondary"
                 value={tabValue}
+                textColor="inherit"
+                component="div"
               >
-                <Link href="/home" passHref>
-                  <Tab label="Home" />
-                </Link>
-                <Link href="/chat" passHref>
-                  <Tab label="Chat" />
-                </Link>
+                <Tab href="/home" label="Home" LinkComponent={Link} />
+                <Tab href="/chat" label="Chat" LinkComponent={Link} />
                 {/* <Link href="/about" passHref>
                   <Tab label="About" />
                 </Link> */}
               </Tabs>
 
-              <Link href="/login" passHref>
+              <nav>
                 <Button
+                  href="/login"
                   sx={{ marginLeft: "auto" }}
                   color="inherit"
                   variant="text"
+                  LinkComponent={Link}
                 >
                   Login
                 </Button>
-              </Link>
-              <Link href="/signup" passHref>
                 <Button
+                  href="/signup"
                   sx={{ marginLeft: "10px" }}
                   variant="contained"
                   color="secondary"
+                  LinkComponent={Link}
                 >
                   SignUp
                 </Button>
-              </Link>
+              </nav>
             </>
           )}
         </Toolbar>

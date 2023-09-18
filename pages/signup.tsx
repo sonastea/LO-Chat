@@ -1,5 +1,4 @@
-import FormButton from "@components/FormButton";
-import { FormControl, Grid, TextField } from "@mui/material";
+import { Button, FormControl, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const MIN_LENGTH: number = 3;
@@ -59,6 +58,8 @@ const Signup = () => {
         <Grid container direction="column" spacing={1}>
           <Grid item>
             <TextField
+              aria-invalid="false"
+              autoComplete="username"
               label="Username"
               name="username"
               type="text"
@@ -70,6 +71,8 @@ const Signup = () => {
           </Grid>
           <Grid item>
             <TextField
+              aria-invalid="false"
+              autoComplete="new-password"
               label="Password"
               name="password"
               type="password"
@@ -79,6 +82,8 @@ const Signup = () => {
           </Grid>
           <Grid item>
             <TextField
+              aria-invalid="false"
+              autoComplete="new-password"
               label="Confirm Password"
               name="password2"
               type="password"
@@ -100,12 +105,9 @@ const Signup = () => {
             />
           </Grid>
         </Grid>
-        <FormButton
-          type="submit"
-          sx={{ mt: 1 }}
-          variant="contained"
-          label="Sign Up"
-        />
+        <Button type="submit" sx={{ mt: 1 }} variant="contained">
+          Sign Up
+        </Button>
       </FormControl>
     </div>
   );

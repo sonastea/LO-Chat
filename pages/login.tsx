@@ -1,5 +1,4 @@
-import FormButton from "@components/FormButton";
-import { FormControl, Grid, TextField } from "@mui/material";
+import { Button, FormControl, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 
 const Login = () => {
@@ -31,6 +30,8 @@ const Login = () => {
         <Grid container direction="column" spacing={1}>
           <Grid item>
             <TextField
+              aria-invalid="false"
+              autoComplete="username"
               label="Username"
               name="username"
               type="text"
@@ -40,6 +41,8 @@ const Login = () => {
           </Grid>
           <Grid item>
             <TextField
+              aria-invalid="false"
+              autoComplete="current-password"
               label="Password"
               name="password"
               type="password"
@@ -48,12 +51,9 @@ const Login = () => {
             />
           </Grid>
         </Grid>
-        <FormButton
-          type="submit"
-          sx={{ mt: 1 }}
-          variant="contained"
-          label="Log In"
-        />
+        <Button type="submit" sx={{ mt: 1 }} variant="contained">
+          Log In
+        </Button>
       </FormControl>
       <p>
         New User? <a href="/regiser">Click to sign up!</a>

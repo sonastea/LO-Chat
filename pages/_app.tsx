@@ -1,30 +1,24 @@
 import Navbar from "@components/Navbar";
-import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/system";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import "../styles/globals.css";
+import theme from "../src/theme";
+import createEmotionCache from "../src/createEmotionCache";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: "#73e8ff",
-      main: "#29b6f6",
-      dark: "#0086c3",
-      contrastText: "#000",
-    },
-    secondary: {
-      light: "#ffff8b",
-      main: "#ffee58",
-      dark: "#c9bc1f",
-      contrastText: "#000",
-    },
-  },
-});
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-function MyApp({ Component, pageProps }: AppProps) {
+export interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+function MyApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <ThemeProvider theme={theme}>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>LO:Chat</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -35,9 +29,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
-      <Component {...pageProps} />
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Navbar />
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
 

@@ -1,13 +1,11 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Tab,
-  Tabs,
-  Toolbar,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Toolbar from "@mui/material/Toolbar";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";

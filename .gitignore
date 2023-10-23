@@ -43,4 +43,7 @@ jspm_packages
 .node_repl_history
 .next
 
+# python virtualenv
+.python-version
+
 tls

@@ -1,11 +1,13 @@
 import BrushIcon from "@mui/icons-material/Brush";
 import CodeIcon from "@mui/icons-material/Code";
 import WebIcon from "@mui/icons-material/Web";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import Image from "next/image";
+import React from "react";
 
 interface IHeroCard {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   text: string;
 }
 
@@ -56,7 +58,7 @@ const Home = () => {
             padding: "50px",
           }}
         >
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, md: 7 }}>
             <Typography
               variant="h3"
               fontWeight={700}
@@ -88,7 +90,7 @@ const Home = () => {
               Try LO:Chat
             </Button>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Image
               style={{ objectFit: "cover", width: "100%", height: "auto" }}
               alt="Hero background"
@@ -115,9 +117,7 @@ const Home = () => {
         >
           {cards.map((card, index) => (
             <Grid
-              item
-              xs={12}
-              md={3.75}
+              size={{ xs: 12, md: 3.7 }}
               minHeight={300}
               key={index}
               sx={{

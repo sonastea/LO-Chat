@@ -14,21 +14,21 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.1",
     "@mui/material": "^6.4.1",
-    "next": "^14.2.11",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/parser": "^8.5.0",
+    "@types/node": "^22.10.10",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@typescript-eslint/parser": "^8.21.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.11",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-config-next": "^15.1.6",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
     "local-ssl-proxy": "^2.0.5",
-    "prettier": "^3.3.3",
-    "typescript": "^5.4.5"
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "LO-Chat",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "dev": "next dev -p 3001 | local-ssl-proxy --key tls/private-key.key --cert tls/cert.crt --source 3000 --target 3001",
     "build": "next build",
@@ -12,18 +12,18 @@
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.1",
-    "@mui/material": "^6.4.1",
+    "@mui/icons-material": "^6.4.2",
+    "@mui/material": "^6.4.2",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.12.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "@typescript-eslint/parser": "^8.21.0",
-    "eslint": "^9.18.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
